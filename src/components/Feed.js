@@ -1,6 +1,7 @@
 import React from 'react';
 import { Container, Row, Col } from 'react-materialize';
 import Profile from './Profile';
+import AddPost from './AddPost';
 
 export default () => {
 	return (
@@ -9,8 +10,8 @@ export default () => {
 				<Col s={12} m={4}>
 					<Profile />
 				</Col>
-				<Col className='red' s={12} m={8}>
-					Field
+				<Col s={12} m={8}>
+					<AddPost />
 				</Col>
 			</Row>
 		</Container>

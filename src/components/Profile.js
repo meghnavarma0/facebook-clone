@@ -1,7 +1,6 @@
 import React from 'react';
 import img from '../assets/meghna-min.jpg';
 import edit from '../assets/edit.png';
-import { Row } from 'react-materialize';
 
 const Profile = () => {
 	return (
