@@ -30,7 +30,8 @@ export default () => {
 				>
 					<NavItem
 						href='components.html'
-						onClick={() => {
+						onClick={event => {
+							event.preventDefault();
 							firebaseApp.auth().signOut();
 						}}
 					>

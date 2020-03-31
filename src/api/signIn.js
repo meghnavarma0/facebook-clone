@@ -1,6 +1,6 @@
 import { firebaseApp, userRef } from '../firebase';
 
-export default (email, password) => {
+export default ({ email, password }) => {
 	console.log('into the function');
 	firebaseApp
 		.auth()
@@ -15,6 +15,6 @@ export default (email, password) => {
 		.catch(err => {
 			console.log(err.message);
 			console.log('user could not be signed in!');
-			return err;
+			return err.message;
 		});
 };
