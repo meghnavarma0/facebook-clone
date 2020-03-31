@@ -1,35 +1,20 @@
-import React, { useEffect } from 'react';
+import React, { useState } from 'react';
 import 'materialize-css/dist/css/materialize.min.css';
 
 import './App.css';
-import { userRef } from './firebase';
+import { userRef, firebaseApp } from './firebase';
 import signUp from './api/signUp';
-import signIn from './api/signIn';
-// import SignUp from './components/SignUp';
+// import signIn from './api/signIn';
+import SignUp from './components/SignUp';
 import Feed from './components/Feed';
 import Navbar from './components/Reusable/Navbar';
 // import SignIn from './components/SignIn';
 
 function App() {
-	useEffect(() => {
-		const callFunc = () => {
-			userRef.push({
-				email: 'test@pqr.com',
-				assword: '12345'
-			});
-		};
-		callFunc();
-		//set
-		//push
-	}, []);
-
-	const onSignIn = () => {
-		const result = signIn('meghna6@test.com', 'password');
-		console.log(result);
-	};
+	const [stage, setStage] = useState('');
 	const onSignUp = () => {
 		const result = signUp(
-			'meghna6@test.com',
+			'meghna7@test.com',
 			'password',
 			'meghna',
 			'varma'
@@ -37,11 +22,24 @@ function App() {
 		console.log(result);
 	};
 
+	firebaseApp.auth().onAuthStateChanged(function(user) {
+		if (user) {
+			// User is signed in.
+			console.log(user.uid);
+			setStage('loggedIn');
+		} else {
+			// No user is signed in.
+			console.log('No user logged in');
+			setStage('notLoggedIn');
+		}
+	});
+
 	return (
 		<div className='App'>
-			<Navbar />
-			<Feed />
-			<button onClick={() => onSignIn()}>Sign In</button>
+			<Navbar stage={stage} />
+			{stage === 'loggedIn' && <Feed />}
+			{stage === 'notLoggedIn' && <SignUp />}
+
 			<button onClick={() => onSignUp()}>Sign Up</button>
 		</div>
 	);

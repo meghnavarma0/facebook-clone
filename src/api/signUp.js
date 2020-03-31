@@ -1,7 +1,7 @@
 import { firebaseApp, userRef } from '../firebase';
 
-export default (email, password, firstname, lastname) => {
-	if (!firstname || !lastname) {
+export default ({ email, password, firstName, lastName }) => {
+	if (!firstName || !lastName) {
 		return false;
 	}
 	firebaseApp
@@ -9,14 +9,14 @@ export default (email, password, firstname, lastname) => {
 		.createUserWithEmailAndPassword(email, password)
 		.then(data => {
 			userRef.child(data.user.uid).set({
-				firstname,
-				lastname,
+				firstName,
+				lastName,
 				email
 			});
 			return true;
 		})
 		.catch(err => {
 			console.log(err);
-			return err;
+			return false;
 		});
 };

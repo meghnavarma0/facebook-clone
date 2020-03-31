@@ -1,5 +1,6 @@
 import React from 'react';
 import { Navbar, NavItem, Icon, Container } from 'react-materialize';
+import { firebaseApp } from '../../firebase';
 
 export default () => {
 	return (
@@ -27,7 +28,14 @@ export default () => {
 						preventScrolling: true
 					}}
 				>
-					<NavItem href='components.html'>Log Out</NavItem>
+					<NavItem
+						href='components.html'
+						onClick={() => {
+							firebaseApp.auth().signOut();
+						}}
+					>
+						Log Out
+					</NavItem>
 				</Navbar>
 			</Container>
 		</div>
