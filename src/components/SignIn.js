@@ -30,6 +30,7 @@ export default props => {
 					onChange={e => onChangeText('password', e.target.value)}
 				/>
 				<Button
+					className='blue'
 					node='button'
 					type='submit'
 					waves='light'
@@ -40,7 +41,13 @@ export default props => {
 				</Button>
 				<p>
 					Don't have an account ?
-					<span onClick={() => props.changeState('SU')}>Sign Up</span>
+					<span
+						style={{ marginLeft: '15px', color: 'blue' }}
+						className='cursors'
+						onClick={() => props.changeState('SU')}
+					>
+						Sign Up
+					</span>
 				</p>
 			</div>
 		</div>

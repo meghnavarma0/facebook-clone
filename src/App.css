@@ -14,3 +14,6 @@ body {
 	background: transparent;
 	box-shadow: none;
 }
+.cursors:hover {
+	cursor: pointer;
+}
