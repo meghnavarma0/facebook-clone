@@ -30,7 +30,7 @@ export default props => {
 					onChange={e => onChangeText('password', e.target.value)}
 				/>
 				<Button
-					className='blue'
+					style={{ background: '#3b5998' }}
 					node='button'
 					type='submit'
 					waves='light'
