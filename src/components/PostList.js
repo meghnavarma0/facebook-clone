@@ -19,7 +19,7 @@ export default () => {
 				});
 				const uid = firebaseApp.auth().currentUser.uid;
 				setMyUID(uid);
-
+				fetchedPosts.reverse();
 				setPosts(fetchedPosts);
 			});
 		};
