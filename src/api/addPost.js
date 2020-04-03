@@ -2,8 +2,15 @@ import { postRef } from '../firebase';
 
 export default (uid, content) => {
 	console.log('into the function');
-	postRef.push({
-		createdBy: uid,
-		content
-	});
+	try {
+		postRef.push({
+			createdBy: uid,
+			content,
+			createdAt: new Date().getTime()
+		});
+		return true;
+	} catch (err) {
+		console.log(err);
+		return false;
+	}
 };

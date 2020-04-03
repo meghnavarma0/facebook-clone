@@ -1,8 +1,24 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Icon, Dropdown, Divider, Button } from 'react-materialize';
 import img from '../assets/meghna-min.jpg';
+import { userRef } from '../firebase';
+import moment from 'moment';
 
-const SinglePost = () => {
+const SinglePost = ({ details, myUID }) => {
+	const [firstName, setFirstName] = useState('');
+	const [lastName, setLastName] = useState('');
+
+	useEffect(() => {
+		const getName = () => {
+			userRef.child(details.createdBy).once('value', snap => {
+				setFirstName(snap.val()['firstName']);
+				setLastName(snap.val()['lastName']);
+			});
+		};
+		if (details && details.createdBy) {
+			getName();
+		}
+	}, []);
 	return (
 		<div
 			className='outerBox'
@@ -12,9 +28,9 @@ const SinglePost = () => {
 		>
 			<div
 				style={{
-					display: 'flex'
+					display: 'flex',
 					// justifyContent: 'spaceAround',
-					// alignItems: 'center'
+					alignItems: 'center'
 				}}
 			>
 				<span style={{ marginRight: '5px' }}>
@@ -35,53 +51,56 @@ const SinglePost = () => {
 						color: 'blue'
 					}}
 				>
-					<h6>Meghna Varma</h6>
+					<h6 style={{ margin: '0px' }}>
+						{firstName} {lastName}
+					</h6>
+					<p style={{ color: 'gray', margin: '0px' }}>
+						{moment(details.createdAt).fromNow()}
+					</p>
 				</span>
 				<span style={{ marginLeft: 'auto' }}>
-					<Dropdown
-						id='Dropdown_6'
-						options={{
-							alignment: 'left',
-							autoTrigger: true,
-							closeOnClick: true,
-							constrainWidth: true,
-							container: null,
-							coverTrigger: true,
-							hover: false,
-							inDuration: 150,
-							onCloseEnd: null,
-							onCloseStart: null,
-							onOpenEnd: null,
-							onOpenStart: null,
-							outDuration: 250
-						}}
-						trigger={
-							<Button
-								node='button'
-								style={{
-									background: 'transparent',
-									color: 'gray',
-									boxShadow: 'none',
-									marginRight: '0px'
-								}}
-							>
-								<Icon>more_vert</Icon>
-							</Button>
-						}
-					>
-						<a href='www.google.com'>edit</a>
-						<Divider />
-						<a href='www.google.com'>delete</a>
-					</Dropdown>
+					{myUID === details.createdBy && (
+						<Dropdown
+							id='Dropdown_6'
+							options={{
+								alignment: 'left',
+								autoTrigger: true,
+								closeOnClick: true,
+								constrainWidth: true,
+								container: null,
+								coverTrigger: true,
+								hover: false,
+								inDuration: 150,
+								onCloseEnd: null,
+								onCloseStart: null,
+								onOpenEnd: null,
+								onOpenStart: null,
+								outDuration: 250
+							}}
+							trigger={
+								<Button
+									node='button'
+									style={{
+										background: 'transparent',
+										color: 'gray',
+										boxShadow: 'none',
+										marginRight: '0px'
+									}}
+								>
+									<Icon>more_vert</Icon>
+								</Button>
+							}
+						>
+							<a href='www.google.com'>edit</a>
+							<Divider />
+							<a href='www.google.com'>delete</a>
+						</Dropdown>
+					)}
 				</span>
 			</div>
 			<hr />
 			<div>
-				<p>
-					Lorem ipsum dolor sit amet consectetur adipisicing elit. In
-					eum itaque provident, quibusdam sint odit delectus dicta
-					quis iusto amet.
-				</p>
+				<p>{details && details.content ? details.content : ''}</p>
 			</div>
 		</div>
 	);
