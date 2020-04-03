@@ -3,6 +3,7 @@ import { Icon, Dropdown, Divider, Button } from 'react-materialize';
 import img from '../assets/meghna-min.jpg';
 import { userRef } from '../firebase';
 import moment from 'moment';
+import deletePost from '../api/deletePost';
 
 const SinglePost = ({ details, myUID }) => {
 	const [firstName, setFirstName] = useState('');
@@ -19,6 +20,11 @@ const SinglePost = ({ details, myUID }) => {
 			getName();
 		}
 	}, []);
+	const onPostDelete = (event, postKey) => {
+		event.preventDefault();
+		const result = deletePost(postKey);
+		console.log(result);
+	};
 	return (
 		<div
 			className='outerBox'
@@ -93,7 +99,14 @@ const SinglePost = ({ details, myUID }) => {
 						>
 							<a href='www.google.com'>edit</a>
 							<Divider />
-							<a href='www.google.com'>delete</a>
+							<a
+								href='www.google.com'
+								onClick={event => {
+									onPostDelete(event, details.postKey);
+								}}
+							>
+								delete
+							</a>
 						</Dropdown>
 					)}
 				</span>
