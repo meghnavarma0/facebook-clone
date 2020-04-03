@@ -3,7 +3,7 @@ import { Navbar, NavItem, Icon, Container } from 'react-materialize';
 import { firebaseApp } from '../../firebase';
 import img from '../../assets/facebook.png';
 
-export default () => {
+export default ({ stage }) => {
 	return (
 		<div style={{ background: '#3b5998' }}>
 			<Container>
@@ -37,15 +37,17 @@ export default () => {
 						preventScrolling: true
 					}}
 				>
-					<NavItem
-						href='components.html'
-						onClick={event => {
-							event.preventDefault();
-							firebaseApp.auth().signOut();
-						}}
-					>
-						Log Out
-					</NavItem>
+					{stage === 'loggedIn' && (
+						<NavItem
+							href='components.html'
+							onClick={event => {
+								event.preventDefault();
+								firebaseApp.auth().signOut();
+							}}
+						>
+							Log Out
+						</NavItem>
+					)}
 				</Navbar>
 			</Container>
 		</div>
