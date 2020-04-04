@@ -1,12 +1,12 @@
 import { userRef } from '../firebase';
 
-export default ({ uid, firstName, lastName }) => {
-	userRef
-		.child(uid)
-		.set({
-			firstName,
-			lastName
-		})
-		.then(data => true)
-		.catch(() => false);
+export default ({ uid, firstName, lastName, imageURL, email }) => {
+	userRef.child(uid).set({
+		email,
+		firstName,
+		lastName,
+		imageURL: imageURL ? imageURL : ''
+	});
+	// .then(data => true)
+	// .catch(() => false);
 };
